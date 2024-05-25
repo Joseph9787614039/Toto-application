@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+        
+        #todo-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            width: 300px;
+        }
+        
+        h1 {
+            margin-top: 0;
+            text-align: center;
+        }
+        
+        #todo-input {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        
+        #add-btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        #add-btn:hover {
+            background-color: #218838;
+        }
+        
+        #todo-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        
+        .todo-item {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .todo-item button {
+            background: none;
+            border: none;
+            color: #dc3545;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="todo-container">
+        <h1>To-Do List</h1>
+        <input type="text" id="todo-input" placeholder="Add a new task...">
+        <button id="add-btn">Add</button>
+        <ul id="todo-list"></ul>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const addButton = document.getElementById('add-btn');
+            const todoInput = document.getElementById('todo-input');
+            const todoList = document.getElementById('todo-list');
+        
+            addButton.addEventListener('click', addTodoItem);
+        
+            function addTodoItem() {
+                const taskText = todoInput.value.trim();
+                if (taskText !== '') {
+                    const li = document.createElement('li');
+                    li.className = 'todo-item';
+                    li.innerHTML = `
+                        <span>${taskText}</span>
+                        <button onclick="removeTodoItem(this)">X</button>
+                    `;
+                    todoList.appendChild(li);
+                    todoInput.value = '';
+                }
+            }
+        
+            window.removeTodoItem = function(button) {
+                const li = button.parentElement;
+                todoList.removeChild(li);
+            }
+        });
+
+    </script>
+        
+</body>
+</html>
